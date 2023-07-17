@@ -10,12 +10,17 @@ class TreesController < ApplicationController
     
     payload = JSON.parse(request.body.read)
 
-    # Generate a new unique ID for the new node
-    new_id = generate_unique_id()
+   
 
-    # Process the payload, add the new node to the tree, and update the tree structure accordingly
+  parent = Node.find(payload["parent"])
+  new_node = Node.create(label: params["label"])
+  Edge.create(parent_id: parent.id, child_id: new_node.id)
+  render json: { success: true }
 
-    render json: { success: true }
+
+
+
+  
   end
 
   def your_tree_data
